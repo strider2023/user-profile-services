@@ -1,0 +1,39 @@
+{
+  "name": "user-profile-services",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebuild": "npm run clean && tslint -c tslint.json -p tsconfig.json --fix",
+    "postbuild": "copyfiles -u 1 src/**/*.yaml src/**/*.json dist/",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node .",
+    "clean": "rm -rf dist/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^4.1.4",
+    "typeorm": "^0.2.25",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.7",
+    "@types/mysql": "^2.15.15",
+    "@types/node": "^14.0.24",
+    "@types/swagger-ui-express": "^4.1.2",
+    "copyfiles": "^2.3.0",
+    "ts-node-dev": "^1.0.0-pre.52",
+    "tslint": "^6.1.2"
+  }
+}
