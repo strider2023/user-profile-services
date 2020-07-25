@@ -1,24 +1,24 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Events Management Services",
+    "title": "User Profile Services",
     "license": {
-      "name": "Events Management Services"
+      "name": "User Profile Services"
     },
     "version": "0.0.1"
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:3002"
     }
   ],
   "paths": {
-    "/api/events": {
+    "/api/users": {
       "get": {
         "tags": [
-          "Events Service"
+          "User Service"
         ],
-        "summary": "Get list of events",
+        "summary": "Get list of users",
         "parameters": [
           {
             "name": "token",
@@ -35,7 +35,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventsResponse"
+                  "$ref": "#/components/schemas/Response"
                 }
               }
             }
@@ -55,12 +55,12 @@
         }
       }
     },
-    "/api/event": {
+    "/api/user": {
       "post": {
         "tags": [
-          "Events Service"
+          "User Service"
         ],
-        "summary": "Create new event",
+        "summary": "Create new user",
         "parameters": [
           {
             "name": "token",
@@ -77,7 +77,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventsResponse"
+                  "$ref": "#/components/schemas/Response"
                 }
               }
             }
@@ -97,12 +97,12 @@
         }
       }
     },
-    "/api/event/{eventId}": {
+    "/api/user/{userId}": {
       "patch": {
         "tags": [
-          "Events Service"
+          "User Service"
         ],
-        "summary": "Update event by id",
+        "summary": "Update user by id",
         "parameters": [
           {
             "name": "token",
@@ -113,7 +113,56 @@
             }
           },
           {
-            "name": "eventId",
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "Event Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User Service"
+        ],
+        "summary": "Delete user by id",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "Authentication Token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
             "in": "path",
             "required": true,
             "description": "Event Id",
@@ -146,12 +195,14 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "delete": {
+      }
+    },
+    "/api/user/{userId}/addresses": {
+      "get": {
         "tags": [
-          "Events Service"
+          "Address Service"
         ],
-        "summary": "Delete event by id",
+        "summary": "Get list of address by userId",
         "parameters": [
           {
             "name": "token",
@@ -162,7 +213,176 @@
             }
           },
           {
-            "name": "eventId",
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "Event Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/{userId}/address": {
+      "post": {
+        "tags": [
+          "Address Service"
+        ],
+        "summary": "Create new address under a userId",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "Authentication Token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "Event Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/{userId}/address/{addressId}": {
+      "patch": {
+        "tags": [
+          "Address Service"
+        ],
+        "summary": "Update address by userId and id",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "Authentication Token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "Event Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "addressId",
+            "in": "path",
+            "required": true,
+            "description": "Event Id",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Address Service"
+        ],
+        "summary": "Delete address by userId and id",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "Authentication Token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "Event Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "addressId",
             "in": "path",
             "required": true,
             "description": "Event Id",
@@ -200,22 +420,16 @@
   },
   "components": {
     "schemas": {
-      "EventsResponse": {
+      "Response": {
         "properties": {
           "status": {
             "type": "string"
           },
-          "status_code": {
+          "message": {
             "type": "string"
           },
-          "status_message": {
-            "type": "string"
-          },
-          "result": {
+          "data": {
             "type": "object"
-          },
-          "log_request_id": {
-            "type": "string"
           }
         }
       }
