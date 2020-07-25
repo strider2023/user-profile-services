@@ -11,14 +11,14 @@ export class UserRepository {
 
     async createUser(user: User) {
         const resp = await this.userRepository.save(user);
-        console.log(`Event, ${user.eventName} created successfully.`);
+        console.log(`Event, ${user.firstname} created successfully.`);
         return resp;
     }
 
     async getUserById(userId: number) {
         const event = await this.userRepository.findOne({ id: userId });
         if (event) {
-            console.log("getEventById", `Event Found: ${event.eventName}`);
+            console.log("getEventById", `Event Found: ${event.firstname}`);
         } else {
             console.log("getEventById", `Event not found for the id ${userId}`);
         }
@@ -32,8 +32,8 @@ export class UserRepository {
         const orderBy = query.orderBy || 'DESC';
         const events = await this.userRepository.findAndCount(
             {
-                where: { eventName: Like('%' + filter + '%') },
-                order: { eventName: orderBy },
+                where: { firstname: Like('%' + filter + '%') },
+                order: { firstname: orderBy },
                 take: count,
                 skip: offset
             }

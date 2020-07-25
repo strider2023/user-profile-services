@@ -27,16 +27,9 @@ export class UserController {
     };
 
     createUser(req: Request, res: Response) {
-        const event = new User();
-        event.eventName = req.body.eventName;
-        event.eventDescription = req.body.eventDescription;
-        event.maxAudience = req.body.maxAudience;
-        event.eventStart = req.body.eventStart;
-        event.eventEnd = req.body.eventEnd;
-        event.eventType = req.body.eventType;
-        event.eventLiveURL = req.body.eventLiveURL;
+        const user = new User();
         const eventsRepository = new UserRepository();
-        eventsRepository.createUser(event).then((resp: any) => {
+        eventsRepository.createUser(user).then((resp: any) => {
             res.send(resp.id);
         });
     };
